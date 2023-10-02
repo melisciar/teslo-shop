@@ -15,7 +15,8 @@
     "@mui/material": "^5.14.11",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-slideshow-image": "^4.2.1"
   },
   "devDependencies": {
     "@types/node": "latest",
