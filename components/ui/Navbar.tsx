@@ -10,8 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
+  const router = useRouter();
   return (
     <AppBar>
       <Toolbar>
@@ -22,13 +24,25 @@ export const Navbar = () => {
         <Box flex={1} />
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <Link component={NextLink} href="/category/men">
-            <Button>Hombres</Button>
+            <Button
+              color={router.asPath === "/category/men" ? "primary" : "info"}
+            >
+              Hombres
+            </Button>
           </Link>
           <Link component={NextLink} href="/category/women">
-            <Button>Mujeres</Button>
+            <Button
+              color={router.asPath === "/category/women" ? "primary" : "info"}
+            >
+              Mujeres
+            </Button>
           </Link>
-          <Link component={NextLink} href="/category/children">
-            <Button>Niñxs</Button>
+          <Link component={NextLink} href="/category/kid">
+            <Button
+              color={router.asPath === "/category/kid" ? "primary" : "info"}
+            >
+              Niñxs
+            </Button>
           </Link>
         </Box>
         <Box flex={1} />
