@@ -1,9 +1,12 @@
 import { Typography } from "@mui/material";
 import { ShopLayout } from "@/components/layouts";
-import { initialData } from "@/database/products";
 import { ProductList } from "@/components/products";
+import { useProducts } from "@/hooks";
+import { FullScreenLoading } from "@/components/ui";
 
-export default function Home() {
+export default function HomePage() {
+  const { products, isLoading } = useProducts("/products");
+
   return (
     <>
       <ShopLayout
@@ -15,7 +18,11 @@ export default function Home() {
           Todos los productos
         </Typography>
 
-        <ProductList products={initialData.products as any} />
+        {isLoading ? (
+          <FullScreenLoading />
+        ) : (
+          <ProductList products={products} />
+        )}
       </ShopLayout>
     </>
   );
