@@ -1,5 +1,3 @@
-import { CartList, OrderSummary } from "@/components/cart";
-import { ShopLayout } from "@/components/layouts";
 import {
   Box,
   Button,
@@ -8,16 +6,17 @@ import {
   Divider,
   Grid,
   Typography,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material'
+import { ShopLayout } from '@/components/layouts'
+import { CartList, OrderSummary } from '@/components/cart'
 
 const CartPage = () => {
   return (
     <ShopLayout
-      title="Carrito"
-      pageDescription="Carrito de compras de la tienda"
+      title='Carrito'
+      pageDescription='Carrito de compras de la tienda'
     >
-      <Typography variant="h1" component="h1">
+      <Typography variant='h1' component='h1'>
         Carrito
       </Typography>
       <Grid container>
@@ -25,13 +24,13 @@ const CartPage = () => {
           <CartList editable />
         </Grid>
         <Grid item xs={12} sm={5}>
-          <Card className="summary-card">
+          <Card className='summary-card'>
             <CardContent>
-              <Typography variant="h2">Orden</Typography>
+              <Typography variant='h2'>Orden</Typography>
               <Divider sx={{ my: 1 }} />
               <OrderSummary />
               <Box sx={{ mt: 3 }}>
-                <Button color="secondary" className="circular-btn" fullWidth>
+                <Button color='secondary' className='circular-btn' fullWidth>
                   Comprar
                 </Button>
               </Box>
@@ -40,7 +39,7 @@ const CartPage = () => {
         </Grid>
       </Grid>
     </ShopLayout>
-  );
-};
+  )
+}
 
-export default CartPage;
+export default CartPage
