@@ -1,20 +1,31 @@
-import { NextPage, GetStaticPaths, GetStaticProps } from "next";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { ShopLayout } from "@/components/layouts";
-import { dbProduts } from "@/database";
-import { ProductSlideshow, SizeSelector } from "@/components/products";
-import { ItemCounter } from "@/components/ui";
-import { IProduct } from "@/interfaces";
-import { redirect } from "next/dist/server/api-utils";
+import { useState } from 'react'
+import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
+import { Box, Button, Chip, Grid, Typography } from '@mui/material'
+import { ShopLayout } from '@/components/layouts'
+import { dbProduts } from '@/database'
+import { ProductSlideshow, SizeSelector } from '@/components/products'
+import { ItemCounter } from '@/components/ui'
+import { ICartProduct, IProduct, ISize } from '@/interfaces'
 
 interface Props {
-  product: IProduct;
+  product: IProduct
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
-  // const router = useRouter();
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+    _id: product._id,
+    image: product.images[0],
+    price: product.price,
+    size: undefined,
+    slug: product.slug,
+    title: product.title,
+    gender: product.gender,
+    quantity: 1,
+  })
 
-  // const { products: product, isLoading } = useProducts(`/products/${router.query.slug}`);
+  const onSelectedSize = (size: ISize) => {
+    setTempCartProduct((currentProduct) => ({ ...currentProduct, size }))
+  }
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
@@ -23,41 +34,51 @@ const ProductPage: NextPage<Props> = ({ product }) => {
           <ProductSlideshow images={product.images} />
         </Grid>
         <Grid item xs={12} sm={5}>
-          <Box display="flex" flexDirection="column">
+          <Box display='flex' flexDirection='column'>
             {/** Títulos */}
-            <Typography variant="h1" component="h1">
+            <Typography variant='h1' component='h1'>
               {product.title}
             </Typography>
-            <Typography variant="subtitle1" component="h2">
+            <Typography variant='subtitle1' component='h2'>
               ${product.price}
             </Typography>
 
             {/** Cantidad */}
             <Box sx={{ my: 2 }}>
-              <Typography variant="subtitle2">Cantidad</Typography>
+              <Typography variant='subtitle2'>Cantidad</Typography>
               <ItemCounter />
-              <SizeSelector sizes={product.sizes} />
+              <SizeSelector
+                sizes={product.sizes}
+                selectedSize={tempCartProduct.size}
+                onSelectedSize={onSelectedSize}
+              />
             </Box>
             {/** Agregar al carrito */}
             {product.inStock > 0 ? (
-              <Button color="secondary" className="circular-btn">
-                Agregar al carrito
+              <Button
+                disabled={tempCartProduct.size === undefined}
+                color='secondary'
+                className='circular-btn'
+              >
+                {tempCartProduct.size
+                  ? 'Agregar al carrito'
+                  : 'Seleccione un talle'}
               </Button>
             ) : (
-              <Chip label="No hay stock" color="error" variant="outlined" />
+              <Chip label='No hay stock' color='error' variant='outlined' />
             )}
 
             {/** Descripción */}
             <Box sx={{ mt: 3 }}>
-              <Typography variant="subtitle2">Descripción</Typography>
-              <Typography variant="body2">{product.description}</Typography>
+              <Typography variant='subtitle2'>Descripción</Typography>
+              <Typography variant='body2'>{product.description}</Typography>
             </Box>
           </Box>
         </Grid>
       </Grid>
     </ShopLayout>
-  );
-};
+  )
+}
 
 // getServerSideProps
 // You should use getServerSideProps when:
@@ -85,14 +106,14 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 // You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const slugs = await dbProduts.getAllProductSlugs(); // your fetch function here
+  const slugs = await dbProduts.getAllProductSlugs() // your fetch function here
   return {
     paths: slugs.map(({ slug }) => ({
       params: { slug },
     })),
-    fallback: "blocking",
-  };
-};
+    fallback: 'blocking',
+  }
+}
 
 // You should use getStaticProps when:
 //- The data required to render the page is available at build time ahead of a user’s request.
@@ -101,23 +122,23 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug = "" } = params as { slug: string };
-  const product = await dbProduts.getProductBySlug(slug);
+  const { slug = '' } = params as { slug: string }
+  const product = await dbProduts.getProductBySlug(slug)
 
   if (!product) {
     return {
       redirect: {
-        destination: "/",
+        destination: '/',
         permanent: false,
       },
-    };
+    }
   }
   return {
     props: {
       product,
     },
     revalidate: 86400,
-  };
-};
+  }
+}
 
-export default ProductPage;
+export default ProductPage
