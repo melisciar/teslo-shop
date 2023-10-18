@@ -17,6 +17,7 @@
     "@types/bcryptjs": "^2.4.5",
     "bcryptjs": "^2.4.3",
     "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.4",
     "next": "latest",
     "react": "latest",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.4",
+    "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
