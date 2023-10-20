@@ -17,6 +17,7 @@
     "@types/bcryptjs": "^2.4.5",
     "axios": "^1.5.1",
     "bcryptjs": "^2.4.3",
+    "jose": "^4.15.4",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.4",
