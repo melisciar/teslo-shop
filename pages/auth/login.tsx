@@ -35,6 +35,8 @@ const LoginPage = () => {
 
   const [showError, setShowError] = useState(false)
 
+  const volver = router.query.p?.toString() || '/'
+
   const onLoginUser = async ({ email, password }: FormData) => {
     setShowError(false)
 
@@ -48,8 +50,7 @@ const LoginPage = () => {
       return
     }
 
-    // Todo: navegar a la pantalla en la que se encontraba el usuario
-    router.replace('/')
+    router.replace(volver)
   }
 
   return (
@@ -115,7 +116,7 @@ const LoginPage = () => {
             <Grid item xs={12} display='flex' justifyContent='end'>
               <Link
                 component={NextLink}
-                href='/auth/register'
+                href={`/auth/register?p=${volver}`}
                 underline='always'
               >
                 ¿No tienes cuenta?
