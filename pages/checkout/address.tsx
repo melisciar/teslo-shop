@@ -4,7 +4,6 @@ import {
   FormControl,
   Grid,
   MenuItem,
-  Select,
   TextField,
   Typography,
 } from '@mui/material'
@@ -14,6 +13,8 @@ import { ShopLayout } from '@/components/layouts'
 import { countries } from '@/utils'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { CartContext } from '@/context'
 
 type FormData = {
   firstName: string
@@ -41,6 +42,7 @@ const getAddressFromCookies = (): FormData => {
 
 const AddressPage = () => {
   const router = useRouter()
+  const { updateAddress } = useContext(CartContext)
 
   const {
     register,
@@ -51,16 +53,7 @@ const AddressPage = () => {
   })
 
   const onSubmitAddress = (data: FormData) => {
-    console.log(data)
-
-    Cookies.set('firstName', data.firstName)
-    Cookies.set('lastName', data.lastName)
-    Cookies.set('address', data.address)
-    Cookies.set('address2', data.address2)
-    Cookies.set('zip', data.zip)
-    Cookies.set('city', data.city)
-    Cookies.set('country', data.country)
-    Cookies.set('phone', data.phone)
+    updateAddress(data)
     router.push('/checkout/summary')
   }
 
@@ -148,7 +141,7 @@ const AddressPage = () => {
                 select
                 variant='filled'
                 label='País'
-                defaultValue={countries[0].code}
+                defaultValue={Cookies.get('country') || countries[0].code}
                 {...register('country', {
                   required: 'Este campo es requerido',
                 })}
