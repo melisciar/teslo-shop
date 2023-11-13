@@ -3,7 +3,9 @@ import {
   Button,
   FormControl,
   Grid,
+  InputLabel,
   MenuItem,
+  Select,
   TextField,
   Typography,
 } from '@mui/material'
@@ -11,9 +13,9 @@ import Cookies from 'js-cookie'
 
 import { ShopLayout } from '@/components/layouts'
 import { countries } from '@/utils'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { CartContext } from '@/context'
 
 type FormData = {
@@ -45,11 +47,12 @@ const AddressPage = () => {
   const { updateAddress } = useContext(CartContext)
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: getAddressFromCookies(),
+    defaultValues: { ...getAddressFromCookies() },
   })
 
   const onSubmitAddress = (data: FormData) => {
@@ -136,25 +139,31 @@ const AddressPage = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <TextField
-                select
-                variant='filled'
-                label='País'
-                defaultValue={Cookies.get('country') || countries[0].code}
-                {...register('country', {
-                  required: 'Este campo es requerido',
-                })}
-                error={!!errors.country}
-                helperText={errors.country?.message}
-              >
-                {countries.map((country) => (
-                  <MenuItem key={country.code} value={country.code}>
-                    {country.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
+            <Controller
+              name='country'
+              control={control}
+              defaultValue={''}
+              render={({ field }) => (
+                <FormControl fullWidth error={!!errors.country}>
+                  <InputLabel>País</InputLabel>
+                  <Select
+                    {...field}
+                    variant='filled'
+                    label='País'
+                    defaultValue={Cookies.get('country') || countries[0].code}
+                    {...register('country', {
+                      required: 'Este campo es requerido',
+                    })}
+                  >
+                    {countries.map((country) => (
+                      <MenuItem key={country.code} value={country.code}>
+                        {country.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
