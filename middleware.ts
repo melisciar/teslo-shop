@@ -1,33 +1,27 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
+import { getToken } from 'next-auth/jwt'
 
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+export async function middleware(req: NextRequest) {
+  const session = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  })
 
-  const token = request.cookies.get('token')?.value
-
-  if (pathname.startsWith('/checkout')) {
-    if (!token) {
-      return NextResponse.redirect(
-        new URL(`/auth/login?p=${pathname}`, request.url)
-      )
-    }
-
-    try {
-      await jwtVerify(
-        token,
-        new TextEncoder().encode(process.env.JWT_SECRET_SEED)
-      )
-      return NextResponse.next()
-    } catch (error) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
-    }
+  if (!session) {
+    const requestedPage = req.nextUrl.pathname
+    const url = req.nextUrl.clone()
+    url.pathname = `/auth/login`
+    url.search = `p=${requestedPage}`
+    return NextResponse.redirect(url)
   }
+
+  return NextResponse.next()
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/checkout/:path*',
+  matcher: ['/checkout/address', '/checkout/summary'],
 }
