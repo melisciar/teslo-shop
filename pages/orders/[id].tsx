@@ -1,5 +1,4 @@
 import { GetServerSideProps, NextPage } from 'next'
-import NextLink from 'next/link'
 import { CartList, OrderSummary } from '@/components/cart'
 import { ShopLayout } from '@/components/layouts'
 import {
@@ -86,18 +85,28 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
               <Divider sx={{ my: 1 }} />
 
-              <OrderSummary />
+              <OrderSummary
+                valores={{
+                  tax: order.tax,
+                  total: order.total,
+                  subTotal: order.subTotal,
+                  numberOfItems: order.numberOfItems,
+                }}
+              />
 
-              <Box sx={{ mt: 3 }}>
+              <Box sx={{ mt: 3 }} display='flex' flexDirection='column'>
                 {/* TODO */}
-                <h1>Pagar</h1>
-                <Chip
-                  sx={{ my: 2 }}
-                  label='Orden ya pagada'
-                  variant='outlined'
-                  color='success'
-                  icon={<CreditScoreOutlined />}
-                />
+                {order.isPaid ? (
+                  <Chip
+                    sx={{ my: 2 }}
+                    label='Orden ya pagada'
+                    variant='outlined'
+                    color='success'
+                    icon={<CreditScoreOutlined />}
+                  />
+                ) : (
+                  <h1>Pagar</h1>
+                )}
               </Box>
             </CardContent>
           </Card>
