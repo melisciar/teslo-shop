@@ -13,6 +13,8 @@ export interface IOrder {
 
   isPaid: boolean
   paidAt?: string
+
+  transactionId?: String
 }
 
 export interface IOrderItem {
