@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 
 import { CartContext } from '@/context'
-import { ShopLayout } from '@/components/layouts'
+import { AdminLayout } from '@/components/layouts'
 import { CartList, OrderSummary } from '@/components/cart'
 
 const CartPage = () => {
@@ -30,7 +30,7 @@ const CartPage = () => {
   }
 
   return (
-    <ShopLayout
+    <AdminLayout
       title='Carrito'
       pageDescription='Carrito de compras de la tienda'
     >
@@ -61,7 +61,7 @@ const CartPage = () => {
           </Card>
         </Grid>
       </Grid>
-    </ShopLayout>
+    </AdminLayout>
   )
 }
 

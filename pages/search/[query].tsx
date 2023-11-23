@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { Box, Typography } from "@mui/material";
-import { ShopLayout } from "@/components/layouts";
+import { AdminLayout } from "@/components/layouts";
 import { ProductList } from "@/components/products";
 import { dbProduts } from "@/database";
 import { IProduct } from "@/interfaces";
@@ -13,7 +13,7 @@ interface Props {
 const SearchPage: NextPage<Props> = ({ products, hayProductos, query }) => {
   return (
     <>
-      <ShopLayout
+      <AdminLayout
         title={"Teslo-Shop - Search"}
         pageDescription={"Encuentra los mejores productos de Teslo aquí"}
       >
@@ -39,7 +39,7 @@ const SearchPage: NextPage<Props> = ({ products, hayProductos, query }) => {
         )}
 
         <ProductList products={products} />
-      </ShopLayout>
+      </AdminLayout>
     </>
   );
 };

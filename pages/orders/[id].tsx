@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { getServerSession } from 'next-auth'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { OrderResponseBody } from '@paypal/paypal-js'
-import { ShopLayout } from '@/components/layouts'
+import { AdminLayout } from '@/components/layouts'
 import {
   Box,
   Card,
@@ -54,7 +54,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
   }
 
   return (
-    <ShopLayout
+    <AdminLayout
       title='Resumen de la orden 12345'
       pageDescription='Resumen de la orden'
     >
@@ -171,7 +171,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
           </Card>
         </Grid>
       </Grid>
-    </ShopLayout>
+    </AdminLayout>
   )
 }
 

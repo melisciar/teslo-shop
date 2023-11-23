@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { ShopLayout } from "@/components/layouts";
+import { AdminLayout } from "@/components/layouts";
 
 const Custom404 = () => {
   return (
-    <ShopLayout
+    <AdminLayout
       title={"Page not found"}
       pageDescription={"No hay nada que mostrar aquí"}
     >
@@ -19,7 +19,7 @@ const Custom404 = () => {
         </Typography>
         <Typography marginLeft={2}>No encontramos nada :(</Typography>
       </Box>
-    </ShopLayout>
+    </AdminLayout>
   );
 };
 

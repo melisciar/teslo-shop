@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import Cookies from 'js-cookie'
 
-import { ShopLayout } from '@/components/layouts'
+import { AdminLayout } from '@/components/layouts'
 import { countries } from '@/utils'
 import { Controller, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -61,7 +61,7 @@ const AddressPage = () => {
   }
 
   return (
-    <ShopLayout
+    <AdminLayout
       title={'Dirección'}
       pageDescription={'Confirmar dirección del destino'}
     >
@@ -189,7 +189,7 @@ const AddressPage = () => {
           </Button>
         </Box>
       </form>
-    </ShopLayout>
+    </AdminLayout>
   )
 }
 
