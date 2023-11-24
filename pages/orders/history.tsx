@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { Chip, Grid, Link, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { AdminLayout } from '@/components/layouts'
+import { ShopLayout } from '@/components/layouts'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { dbOrders } from '@/database'
 import { IOrder } from '@/interfaces'
@@ -57,7 +57,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
   }))
 
   return (
-    <AdminLayout
+    <ShopLayout
       title={'Historial de órdenes'}
       pageDescription={'Historial de órdenes del cliente'}
     >
@@ -75,7 +75,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
           />
         </Grid>
       </Grid>
-    </AdminLayout>
+    </ShopLayout>
   )
 }
 
