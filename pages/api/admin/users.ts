@@ -50,7 +50,6 @@ const updateUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 
     user.role = role
-    console.log(user)
     await user.save()
 
     await db.disconnect()
