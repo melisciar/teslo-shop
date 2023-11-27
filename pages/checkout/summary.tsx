@@ -16,7 +16,7 @@ import Cookies from 'js-cookie'
 
 import { CartContext } from '@/context'
 import { CartList, OrderSummary } from '@/components/cart'
-import { AdminLayout } from '@/components/layouts'
+import { ShopLayout } from '@/components/layouts'
 import { countries } from '@/utils'
 import { useRouter } from 'next/router'
 
@@ -63,7 +63,7 @@ const SummaryPage = () => {
   } = shippingAddress
 
   return (
-    <AdminLayout title='Resumen de compra' pageDescription='Resumen de la orden'>
+    <ShopLayout title='Resumen de compra' pageDescription='Resumen de la orden'>
       <Typography variant='h1' component='h1'>
         Resumen de la orden
       </Typography>
@@ -138,7 +138,7 @@ const SummaryPage = () => {
           </Card>
         </Grid>
       </Grid>
-    </AdminLayout>
+    </ShopLayout>
   )
 }
 

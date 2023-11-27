@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
 import { useProducts } from '@/hooks'
-import { AdminLayout } from '@/components/layouts'
+import { ShopLayout } from '@/components/layouts'
 import { ProductList } from '@/components/products'
 import { FullScreenLoading } from '@/components/ui'
 import { useEffect } from 'react'
@@ -22,14 +22,14 @@ const GenderCategoryPage = () => {
   const { products, isLoading } = useProducts(`/products?gender=${gender}`)
 
   return (
-    <AdminLayout title={`Teslo Shop - ${gender}`} pageDescription={''}>
+    <ShopLayout title={`Teslo Shop - ${gender}`} pageDescription={''}>
       <Typography variant='h1'>Tienda</Typography>
       <Typography variant='h2' sx={{ mb: 1 }}>
         Todos los productos de la categoría {gender}
       </Typography>
 
       {isLoading ? <FullScreenLoading /> : <ProductList products={products} />}
-    </AdminLayout>
+    </ShopLayout>
   )
 }
 

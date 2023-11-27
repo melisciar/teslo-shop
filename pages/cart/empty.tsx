@@ -1,11 +1,11 @@
 import NextLink from "next/link";
 import { Box, Link, Typography } from "@mui/material";
 import { RemoveShoppingCartOutlined } from "@mui/icons-material";
-import { AdminLayout } from "@/components/layouts";
+import { ShopLayout } from "@/components/layouts";
 
 const EmptyPage = () => {
   return (
-    <AdminLayout
+    <ShopLayout
       title="Carrito vacío"
       pageDescription="No hay artículos en el carrito de compras"
     >
@@ -24,7 +24,7 @@ const EmptyPage = () => {
           </Link>
         </Box>
       </Box>
-    </AdminLayout>
+    </ShopLayout>
   );
 };
 

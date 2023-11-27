@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { AdminLayout } from '@/components/layouts'
+import { ShopLayout } from '@/components/layouts'
 import { ProductList } from '@/components/products'
 import { useProducts } from '@/hooks'
 import { FullScreenLoading } from '@/components/ui'
@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <>
-      <AdminLayout
+      <ShopLayout
         title={'Teslo-Shop - Home'}
         pageDescription={'Encuentra los mejores productos de Teslo aquí'}
       >
@@ -23,7 +23,7 @@ export default function HomePage() {
         ) : (
           <ProductList products={products} />
         )}
-      </AdminLayout>
+      </ShopLayout>
     </>
   )
 }

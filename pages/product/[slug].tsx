@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import { Box, Button, Chip, Grid, Typography } from '@mui/material'
-import { AdminLayout } from '@/components/layouts'
+import { ShopLayout } from '@/components/layouts'
 import { dbProduts } from '@/database'
 import { ProductSlideshow, SizeSelector } from '@/components/products'
 import { ItemCounter } from '@/components/ui'
@@ -41,7 +41,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   }
 
   return (
-    <AdminLayout title={product.title} pageDescription={product.description}>
+    <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={7}>
           <ProductSlideshow images={product.images} />
@@ -94,7 +94,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
           </Box>
         </Grid>
       </Grid>
-    </AdminLayout>
+    </ShopLayout>
   )
 }
 
