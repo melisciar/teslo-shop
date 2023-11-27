@@ -3,7 +3,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]'
 
 import { IOrder } from '@/interfaces'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { db, dbProduts } from '@/database'
+import { db, dbProducts } from '@/database'
 import { Order, Product } from '@/models'
 
 type Data =
@@ -41,11 +41,11 @@ const createOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const productsIds = orderItems.map((product) => product._id)
   await db.connect()
 
-  const dbProduts = await Product.find({ _id: { $in: productsIds } })
+  const dbProducts = await Product.find({ _id: { $in: productsIds } })
 
   try {
     const subTotal = orderItems.reduce((prev, current) => {
-      const currentPrice = dbProduts.find(
+      const currentPrice = dbProducts.find(
         (prod) => prod.id === current._id
       )?.price
       if (!currentPrice) {

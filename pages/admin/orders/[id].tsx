@@ -10,7 +10,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import { AirplaneTicketOutlined, CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material'
+import { ConfirmationNumberOutlined, CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material'
 
 import { dbOrders } from '@/database'
 import { IOrder } from '@/interfaces'
@@ -27,7 +27,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
     <AdminLayout
       title='Resumen de la orden 12345'
       subtitle='Resumen de la orden'
-      icon={<AirplaneTicketOutlined />}
+      icon={<ConfirmationNumberOutlined />}
     >
       <Typography variant='h1' component='h1'>
         Orden {order._id}

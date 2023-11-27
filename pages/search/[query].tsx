@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { Box, Typography } from "@mui/material";
 import { ShopLayout } from "@/components/layouts";
 import { ProductList } from "@/components/products";
-import { dbProduts } from "@/database";
+import { dbProducts } from "@/database";
 import { IProduct } from "@/interfaces";
 
 interface Props {
@@ -61,11 +61,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  let products = await dbProduts.getProductsByTerm(query);
+  let products = await dbProducts.getProductsByTerm(query);
   const hayProductos = products.length > 0;
 
   if (!hayProductos) {
-    products = await dbProduts.getAllProducts();
+    products = await dbProducts.getAllProducts();
   }
 
   return {

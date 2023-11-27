@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import { Box, Button, Chip, Grid, Typography } from '@mui/material'
 import { ShopLayout } from '@/components/layouts'
-import { dbProduts } from '@/database'
+import { dbProducts } from '@/database'
 import { ProductSlideshow, SizeSelector } from '@/components/products'
 import { ItemCounter } from '@/components/ui'
 import { ICartProduct, IProduct, ISize } from '@/interfaces'
@@ -104,7 +104,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 /* export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { slug = "" } = params as { slug: string };
-  const product = await dbProduts.getProductBySlug(slug); // your fetch function here
+  const product = await dbProducts.getProductBySlug(slug); // your fetch function here
 
   if (!product) {
     return {
@@ -124,7 +124,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 // You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const slugs = await dbProduts.getAllProductSlugs() // your fetch function here
+  const slugs = await dbProducts.getAllProductSlugs() // your fetch function here
   return {
     paths: slugs.map(({ slug }) => ({
       params: { slug },
@@ -141,7 +141,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string }
-  const product = await dbProduts.getProductBySlug(slug)
+  const product = await dbProducts.getProductBySlug(slug)
 
   if (!product) {
     return {
