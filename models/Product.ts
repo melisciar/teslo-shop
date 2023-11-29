@@ -1,9 +1,9 @@
-import { IProduct } from "@/interfaces";
-import mongoose, { Schema, model, Model } from "mongoose";
+import { IProduct } from '@/interfaces'
+import mongoose, { Schema, model, Model } from 'mongoose'
 
 const productSchema = new Schema(
   {
-    description: { type: String, required: true },
+    description: { type: String, required: true, default: '' },
     images: [{ type: String }],
     inStock: { type: Number, required: true, default: 0 },
     price: { type: Number, required: true, default: 0 },
@@ -11,35 +11,37 @@ const productSchema = new Schema(
       {
         type: String,
         enum: {
-          values: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
-          message: "{VALUE} no es un talle válido",
+          values: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+          message: '{VALUE} no es un talle válido',
         },
       },
     ],
     slug: { type: String, required: true, unique: true },
     tags: [{ type: String }],
-    title: { type: String, required: true },
+    title: { type: String, required: true, default: '' },
     type: {
       type: String,
       enum: {
-        values: ["shirts", "pants", "hoodies", "hats"],
-        message: "{VALUE} no es un tipo válido",
+        values: ['shirts', 'pants', 'hoodies', 'hats'],
+        message: '{VALUE} no es un tipo válido',
       },
+      default: 'shirts',
     },
     gender: {
       type: String,
       enum: {
-        values: ["men", "women", "kid", "unisex"],
-        message: "{VALUE} no es un género válido",
+        values: ['men', 'women', 'kid', 'unisex'],
+        message: '{VALUE} no es un género válido',
       },
+      default: 'unisex',
     },
   },
   { timestamps: true }
-);
+)
 
-productSchema.index({ title: "text", tags: "text" });
+productSchema.index({ title: 'text', tags: 'text' })
 
 const Product: Model<IProduct> =
-  mongoose.models?.Product || model("Product", productSchema);
+  mongoose.models?.Product || model('Product', productSchema)
 
-export default Product;
+export default Product
