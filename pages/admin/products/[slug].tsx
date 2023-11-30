@@ -398,6 +398,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                 label='Se necesitan al menos 2 imágenes'
                 color='error'
                 variant='outlined'
+                sx={{display: getValues('images').length < 2 ? 'flex' : 'none'}}
               />
 
               <Grid container spacing={2}>
@@ -407,7 +408,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                       <CardMedia
                         component='img'
                         className='fadeIn'
-                        image={`/products/${img}`}
+                        image={img}
                         alt={img}
                       />
                       <CardActions>
