@@ -225,7 +225,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
               variant='filled'
               fullWidth
               multiline
-              maxRows={15}
+              rows={3}
               sx={{ mb: 1 }}
               {...register('description', {
                 required: 'Este campo es requerido',
