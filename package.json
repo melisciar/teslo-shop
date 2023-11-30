@@ -19,6 +19,8 @@
     "@types/bcryptjs": "^2.4.5",
     "axios": "^1.5.1",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.0",
+    "formidable": "^3.5.1",
     "jose": "^4.15.4",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
@@ -32,6 +34,7 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
+    "@types/formidable": "^3.4.5",
     "@types/js-cookie": "^3.0.4",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "latest",

@@ -27,6 +27,7 @@ import {
   Paper,
   Radio,
   RadioGroup,
+  styled,
   TextField,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
@@ -37,6 +38,18 @@ import { useRouter } from 'next/router'
 const validTypes = ['shirts', 'pants', 'hoodies', 'hats']
 const validGender = ['men', 'women', 'kid', 'unisex']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+})
 
 interface FormData {
   _id?: string
@@ -114,6 +127,38 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
     const updatedTags = getValues('tags').filter((t) => t !== tag)
 
     setValue('tags', updatedTags, { shouldValidate: true })
+  }
+
+  const onFilesSelected = async ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    if (!target.files || target.files.length == 0) {
+      return
+    }
+
+    try {
+      for (const file of target.files) {
+        const formData = new FormData()
+        formData.append('file', file)
+        const { data } = await tesloApi.post<{ message: string }>(
+          '/admin/upload',
+          formData
+        )
+        setValue('images', [...getValues('images'), data.message], {
+          shouldValidate: true,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onDeleteImage = (image: string) => {
+    setValue(
+      'images',
+      getValues('images').filter((img) => img !== image),
+      { shouldValidate: true }
+    )
   }
 
   const onSubmit = async (formData: FormData) => {
@@ -334,22 +379,29 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
             <Box display='flex' flexDirection='column'>
               <FormLabel sx={{ mb: 1 }}>Imágenes</FormLabel>
               <Button
+                component='label'
                 color='secondary'
                 fullWidth
                 startIcon={<UploadOutlined />}
                 sx={{ mb: 3 }}
               >
                 Cargar imagen
+                <VisuallyHiddenInput
+                  type='file'
+                  multiple
+                  accept='image/png, image/gif, image/jpeg'
+                  onChange={onFilesSelected}
+                />
               </Button>
 
               <Chip
-                label='Es necesario al menos 2 imagenes'
+                label='Se necesitan al menos 2 imágenes'
                 color='error'
                 variant='outlined'
               />
 
               <Grid container spacing={2}>
-                {product.images.map((img) => (
+                {getValues('images').map((img) => (
                   <Grid item xs={4} sm={3} key={img}>
                     <Card>
                       <CardMedia
@@ -359,7 +411,11 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                         alt={img}
                       />
                       <CardActions>
-                        <Button fullWidth color='error'>
+                        <Button
+                          fullWidth
+                          color='error'
+                          onClick={() => onDeleteImage(img)}
+                        >
                           Borrar
                         </Button>
                       </CardActions>
@@ -392,7 +448,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   } else {
     product = await dbProducts.getProductBySlug(slug.toString())
   }
-
 
   if (!product) {
     return {
