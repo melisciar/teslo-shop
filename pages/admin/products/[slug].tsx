@@ -173,7 +173,6 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
         method: formData._id ? 'PUT' : 'POST',
         data: formData,
       })
-      console.log({ data })
       if (!formData._id) {
         router.replace(`/admin/products/${formData.slug}`)
       } else {

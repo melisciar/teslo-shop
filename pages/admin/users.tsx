@@ -32,7 +32,6 @@ const UsersPage = () => {
       await tesloApi.put('/admin/users', { userId, role: newRole })
     } catch (error) {
       setUsers(previousUsers)
-      console.log(error)
       alert('No se pudo actualizar el rol del usuario')
     }
   }

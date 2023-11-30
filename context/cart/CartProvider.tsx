@@ -152,7 +152,6 @@ export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
     try {
       const { data } = await tesloApi.post('/orders', body)
-      console.log(data)
 
       dispatch({ type: 'Cart - Order complete' })
 
