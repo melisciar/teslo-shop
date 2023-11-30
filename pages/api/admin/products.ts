@@ -1,8 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { isValidObjectId } from 'mongoose'
+import {v2 as cloudinary} from 'cloudinary';
 import { db } from '@/database'
 import { IProduct } from '@/interfaces'
 import { Product } from '@/models'
-import { isValidObjectId } from 'mongoose'
-import type { NextApiRequest, NextApiResponse } from 'next'
+
+cloudinary.config(process.env.CLOUDINARY_URL || '');
 
 type Data = { message: string } | IProduct[] | IProduct
 
@@ -65,10 +68,14 @@ const updateProduct = async (
         .status(400)
         .json({ message: 'No existe un producto con ese ID' })
     }
-    /**
-     * TODO: eliminar imágenes en Cloudinary
-     */
 
+    product.images.forEach(async(image) => {
+      if(!images.includes(image)){
+        // Borrar de cloudinary
+        const [fileId, extension] = image.substring(image.lastIndexOf('/') + 1).split('.')
+        await cloudinary.uploader.destroy(fileId)
+      }
+    })
     await product.updateOne(req.body)
 
     await db.disconnect()
