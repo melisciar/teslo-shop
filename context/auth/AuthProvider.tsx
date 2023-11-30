@@ -6,7 +6,7 @@ import { useSession, signOut } from 'next-auth/react'
 
 import { AuthContext, authReducer } from '.'
 import { IUser } from '@/interfaces'
-import { tesloApi } from '@/api'
+import { tesloApi } from '@/axiosApi'
 
 export interface AuthState {
   isLoggedIn: boolean

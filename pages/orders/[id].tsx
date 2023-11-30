@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 import { CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material'
 
-import { tesloApi } from '@/api'
+import { tesloApi } from '@/axiosApi'
 import { dbOrders } from '@/database'
 import { IOrder } from '@/interfaces'
 import { authOptions } from '../api/auth/[...nextauth]'
